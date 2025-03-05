@@ -1,10 +1,12 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Plus, Search, Film, Home } from "lucide-react";
+import { Plus, Search, Film, Home, LogOut } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 const Navbar: React.FC = () => {
   const location = useLocation();
+  const { logout } = useAuth();
   
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -41,6 +43,13 @@ const Navbar: React.FC = () => {
           >
             <Plus size={24} className="text-coral" />
             <span>Add Film</span>
+          </button>
+          <button 
+            className="film-nav-item text-white" 
+            onClick={logout}
+          >
+            <LogOut size={24} />
+            <span>Logout</span>
           </button>
         </nav>
       </div>
