@@ -1,10 +1,11 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 210 40% 98%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -35,19 +36,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -79,14 +73,6 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -97,5 +83,106 @@
 
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
+}
+
+@layer components {
+  .film-button {
+    @apply px-4 py-2 rounded-10 font-medium transition-all duration-300 shadow-sm;
+  }
+
+  .film-card {
+    @apply rounded-10 bg-white shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg;
+  }
+
+  .film-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .film-input {
+    @apply rounded-10 border border-gray-200 px-4 py-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200;
+  }
+
+  .film-modal {
+    @apply bg-white rounded-10 shadow-xl overflow-hidden max-w-3xl w-full mx-auto;
+  }
+
+  .film-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+  }
+
+  .film-horizontal-scroll {
+    @apply flex space-x-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent snap-x;
+  }
+
+  .film-nav-item {
+    @apply flex flex-col items-center justify-center space-y-1 px-4 py-2 text-xs font-medium transition-all duration-200;
+  }
+
+  .film-nav-active {
+    @apply text-coral;
+  }
+
+  .film-tag {
+    @apply inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-700 mr-2 mb-2;
+  }
+
+  .scale-in-center {
+    animation: scale-in-center 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  .fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+
+  .blur-load {
+    background-size: cover;
+    background-position: center;
+  }
+
+  .blur-load.loaded > img {
+    opacity: 1;
+  }
+
+  .blur-load > img {
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+  }
+}
+
+@keyframes scale-in-center {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bbb;
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #ddd transparent;
 }
