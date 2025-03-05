@@ -19,37 +19,37 @@ const Navbar: React.FC = () => {
           <Link 
             to="/" 
             className={`film-nav-item ${isActive('/') ? 'film-nav-active' : 'text-white'}`}
+            aria-label="Home"
           >
             <Home size={24} />
-            <span>Home</span>
           </Link>
           <Link 
             to="/search" 
             className={`film-nav-item ${isActive('/search') ? 'film-nav-active' : 'text-white'}`}
+            aria-label="Search"
           >
             <Search size={24} />
-            <span>Search</span>
           </Link>
           <Link 
             to="/library" 
             className={`film-nav-item ${isActive('/library') ? 'film-nav-active' : 'text-white'}`}
+            aria-label="Library"
           >
             <Film size={24} />
-            <span>Library</span>
           </Link>
           <button 
             className="film-nav-item text-white" 
             onClick={() => window.dispatchEvent(new CustomEvent('openAddFilmModal'))}
+            aria-label="Add Film"
           >
             <Plus size={24} className="text-coral" />
-            <span>Add Film</span>
           </button>
           <button 
             className="film-nav-item text-white" 
             onClick={logout}
+            aria-label="Logout"
           >
             <LogOut size={24} />
-            <span>Logout</span>
           </button>
         </nav>
       </div>
