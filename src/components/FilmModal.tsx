@@ -146,11 +146,6 @@ const FilmModal: React.FC<FilmModalProps> = ({ film, onClose, isOpen }) => {
                 </div>
               </div>
             )}
-            
-            <div className="col-span-full mt-4">
-              <h3 className="text-sm font-medium text-gray-500 mb-1">Added On</h3>
-              <p className="text-gray-900">{film.createdAt.toLocaleDateString()}</p>
-            </div>
           </div>
           
           <div className="flex space-x-4 pt-4 border-t">
