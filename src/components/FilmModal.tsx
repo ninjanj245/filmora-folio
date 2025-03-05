@@ -151,14 +151,14 @@ const FilmModal: React.FC<FilmModalProps> = ({ film, onClose, isOpen }) => {
           <div className="flex space-x-4 pt-4 border-t">
             <button 
               onClick={() => setIsEditing(true)}
-              className="film-button flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 flex items-center justify-center"
+              className="film-button flex-1 border border-gray-200 hover:bg-gray-50 text-black flex items-center justify-center"
             >
               <Edit size={18} className="mr-2" />
               Edit
             </button>
             <button 
               onClick={handleDelete}
-              className="film-button flex-1 bg-red-100 hover:bg-red-200 text-red-600 flex items-center justify-center"
+              className="film-button flex-1 bg-red-500 hover:bg-red-600 text-white flex items-center justify-center"
             >
               <Trash2 size={18} className="mr-2" />
               Delete

@@ -18,34 +18,36 @@ const Navbar: React.FC = () => {
         <nav className="flex justify-around">
           <Link 
             to="/" 
-            className={`film-nav-item ${isActive('/') ? 'film-nav-active' : 'text-white'}`}
+            className={`film-nav-item ${isActive('/') ? 'film-nav-active' : 'text-gray-400'}`}
             aria-label="Home"
           >
             <Home size={24} />
           </Link>
           <Link 
             to="/search" 
-            className={`film-nav-item ${isActive('/search') ? 'film-nav-active' : 'text-white'}`}
+            className={`film-nav-item ${isActive('/search') ? 'film-nav-active' : 'text-gray-400'}`}
             aria-label="Search"
           >
             <Search size={24} />
           </Link>
+          <button 
+            className="film-nav-item text-white bg-transparent border-0 -mt-5 relative"
+            onClick={() => window.dispatchEvent(new CustomEvent('openAddFilmModal'))}
+            aria-label="Add Film"
+          >
+            <div className="rounded-full border-4 border-black bg-white p-3">
+              <Plus size={24} className="text-black" />
+            </div>
+          </button>
           <Link 
             to="/library" 
-            className={`film-nav-item ${isActive('/library') ? 'film-nav-active' : 'text-white'}`}
+            className={`film-nav-item ${isActive('/library') ? 'film-nav-active' : 'text-gray-400'}`}
             aria-label="Library"
           >
             <Film size={24} />
           </Link>
           <button 
-            className="film-nav-item text-white" 
-            onClick={() => window.dispatchEvent(new CustomEvent('openAddFilmModal'))}
-            aria-label="Add Film"
-          >
-            <Plus size={24} className="text-coral" />
-          </button>
-          <button 
-            className="film-nav-item text-white" 
+            className="film-nav-item text-gray-400 hover:text-white" 
             onClick={logout}
             aria-label="Logout"
           >
