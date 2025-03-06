@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Film } from "@/lib/types";
@@ -133,6 +134,8 @@ const Index = () => {
         isOpen={showAddModal} 
         onClose={() => setShowAddModal(false)} 
       />
+
+      <Navbar />
     </div>
   );
 };
