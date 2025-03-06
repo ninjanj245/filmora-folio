@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Plus, Search, Film, Home, LogOut } from "lucide-react";
+import { Plus, Search, Film as FilmIcon, Home, LogOut } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
 const Navbar: React.FC = () => {
@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
             className={`film-nav-item ${isActive('/library') ? 'film-nav-active' : 'text-gray-400'}`}
             aria-label="Library"
           >
-            <Film size={24} />
+            <FilmIcon size={24} />
           </Link>
           <button 
             className="film-nav-item text-gray-400 hover:text-white" 

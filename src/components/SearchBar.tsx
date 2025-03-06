@@ -3,23 +3,35 @@ import React, { useState } from "react";
 import { Search } from "lucide-react";
 import { SortOption } from "@/lib/types";
 import { useFilms } from "@/context/FilmContext";
+import { useNavigate } from "react-router-dom";
 
 interface SearchBarProps {
-  onSearch: (results: any[], query: string) => void;
+  onSearch?: (results: any[], query: string) => void;
   className?: string;
+  simplified?: boolean;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch, className = "" }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ 
+  onSearch, 
+  className = "",
+  simplified = false
+}) => {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<SortOption>("alphabetical");
   const { searchFilms, addRecentSearch } = useFilms();
+  const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
-      const results = searchFilms(query, filter);
-      onSearch(results, query);
       addRecentSearch(query);
+      
+      if (simplified) {
+        navigate(`/search?q=${encodeURIComponent(query)}`);
+      } else if (onSearch) {
+        const results = searchFilms(query, filter);
+        onSearch(results, query);
+      }
     }
   };
 
