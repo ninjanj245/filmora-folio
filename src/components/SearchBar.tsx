@@ -30,36 +30,17 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, className = "" }) => {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search films..."
-          className="film-input pr-12 pl-10"
+          placeholder="Search"
+          className="w-full p-4 pr-12 text-xl rounded-full border-2 border-black focus:outline-none"
         />
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <Search size={18} className="text-gray-400" />
-        </div>
         <button
           type="submit"
-          className="absolute inset-y-0 right-0 px-3 flex items-center bg-gray-100 rounded-r-10"
+          className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black rounded-full text-white"
+          aria-label="Search"
         >
-          Search
+          <Search size={24} />
         </button>
       </form>
-      
-      <div className="mt-3 flex flex-wrap gap-2">
-        <span className="text-sm text-gray-500">Filter:</span>
-        {["alphabetical", "director", "actor", "producer", "number", "genre", "year", "tags"].map((option) => (
-          <button
-            key={option}
-            onClick={() => setFilter(option as SortOption)}
-            className={`px-3 py-1 text-xs rounded-full transition-colors ${
-              filter === option
-                ? "bg-coral text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-          >
-            {option.charAt(0).toUpperCase() + option.slice(1)}
-          </button>
-        ))}
-      </div>
     </div>
   );
 };

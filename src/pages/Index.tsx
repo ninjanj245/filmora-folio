@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Film } from "@/lib/types";
@@ -9,7 +8,6 @@ import FilmModal from "@/components/FilmModal";
 import AddFilmModal from "@/components/AddFilmModal";
 import SearchBar from "@/components/SearchBar";
 import Navbar from "@/components/Navbar";
-import { LogOut, FilmIcon, Search, Plus } from "lucide-react";
 
 const Index = () => {
   const { recentFilms, recentSearches, films, searchFilms, addRecentSearch } = useFilms();
@@ -19,14 +17,12 @@ const Index = () => {
   const [searchResults, setSearchResults] = useState<Film[]>([]);
   const navigate = useNavigate();
   
-  // Redirect to login if not authenticated
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
     }
   }, [isAuthenticated, navigate]);
   
-  // Listen for the custom event to open the add film modal
   useEffect(() => {
     const handleOpenAddModal = () => setShowAddModal(true);
     window.addEventListener("openAddFilmModal", handleOpenAddModal);
@@ -56,111 +52,75 @@ const Index = () => {
   }
   
   return (
-    <div className="min-h-screen pb-20">
-      <div className="film-container py-6">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">Film Library</h1>
-          
-          {user && (
-            <button
-              onClick={logout}
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-              aria-label="Logout"
-            >
-              <LogOut size={20} />
-            </button>
-          )}
-        </div>
+    <div className="min-h-screen pb-20 px-6">
+      <div className="max-w-2xl mx-auto pt-8">
+        <h1 className="text-4xl font-bold mb-8">Welcome, {user?.name || 'User'}</h1>
         
-        <div className="flex space-x-4 mb-8">
+        <div className="grid grid-cols-2 gap-4 mb-8">
           <button
             onClick={() => setShowAddModal(true)}
-            className="film-button flex-1 bg-coral text-white hover:bg-opacity-90 flex items-center justify-center"
+            className="p-6 bg-black text-white rounded-3xl text-xl font-medium hover:opacity-90 transition-opacity"
           >
-            <Plus size={18} className="mr-2" />
-            Add Film
+            Add film
           </button>
           <button
             onClick={() => navigate("/library")}
-            className="film-button flex-1 bg-gray-800 text-white hover:bg-opacity-90 flex items-center justify-center"
+            className="p-6 bg-white text-black border-2 border-black rounded-3xl text-xl font-medium hover:bg-gray-50 transition-colors"
           >
-            <FilmIcon size={18} className="mr-2" />
             View Library
           </button>
         </div>
-        
-        <div className="mb-8">
-          <SearchBar onSearch={handleSearch} className="mb-4" />
-          
-          {searchResults.length > 0 && (
-            <div className="mt-4 mb-8">
-              <h2 className="text-lg font-semibold mb-4">Search Results</h2>
-              <div className="film-horizontal-scroll">
-                {searchResults.map((film) => (
-                  <FilmCard 
-                    key={film.id} 
-                    film={film} 
-                    onClick={() => handleOpenFilm(film)} 
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-          
-          {recentSearches.length > 0 && (
-            <div className="mt-4">
-              <h3 className="text-sm font-medium text-gray-500 mb-2">Recent Searches</h3>
-              <div className="flex flex-wrap gap-2">
-                {recentSearches.map((search, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleRecentSearchClick(search)}
-                    className="film-tag bg-gray-100 text-gray-700 hover:bg-gray-200 cursor-pointer flex items-center"
-                  >
-                    <Search size={12} className="mr-1" />
-                    {search}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-        
-        {recentFilms.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-lg font-semibold mb-4">Recently Added Films</h2>
-            <div className="film-horizontal-scroll">
-              {recentFilms.map((film) => (
-                <FilmCard 
-                  key={film.id} 
-                  film={film} 
-                  onClick={() => handleOpenFilm(film)} 
-                />
+
+        <SearchBar onSearch={handleSearch} className="mb-12" />
+
+        {recentSearches.length > 0 && (
+          <div className="mb-12">
+            <h2 className="text-2xl font-bold mb-4">Last 5 searches</h2>
+            <div className="grid grid-cols-2 gap-4">
+              {recentSearches.map((search, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleRecentSearchClick(search)}
+                  className="recent-search-card p-6 text-left"
+                >
+                  <span className="text-xl font-medium">Search #{index + 1}</span>
+                  <p className="text-gray-600 mt-1">{search}</p>
+                </button>
               ))}
             </div>
           </div>
         )}
-        
-        <div className="mt-8">
-          <h2 className="text-lg font-semibold mb-4">Library Statistics</h2>
-          <div className="film-grid">
-            <div className="p-6 bg-blue-50 rounded-10">
-              <h3 className="text-sm font-medium text-blue-700 mb-1">Total Films</h3>
-              <p className="text-3xl font-bold text-blue-900">{films.length}</p>
+
+        {recentFilms.length > 0 && (
+          <div className="mb-12">
+            <h2 className="text-2xl font-bold mb-4">Last 5 added</h2>
+            <div className="grid grid-cols-2 gap-4">
+              {recentFilms.map((film) => (
+                <FilmCard key={film.id} film={film} onClick={() => handleOpenFilm(film)} />
+              ))}
             </div>
-            <div className="p-6 bg-purple-50 rounded-10">
-              <h3 className="text-sm font-medium text-purple-700 mb-1">Storage Used</h3>
-              <p className="text-3xl font-bold text-purple-900">
-                {Math.min(Math.round((films.length / 10000) * 100), 100)}%
-              </p>
-              <p className="text-xs text-purple-600 mt-1">
-                {films.length} of 10,000 slots
+          </div>
+        )}
+
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">Stats</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-gray-100 rounded-3xl p-6">
+              <h3 className="text-gray-600 mb-2">Films in storage</h3>
+              <p className="text-4xl font-bold">{films.length}</p>
+            </div>
+            <div className="bg-gray-100 rounded-3xl p-6">
+              <h3 className="text-gray-600 mb-2">Days since last added</h3>
+              <p className="text-4xl font-bold">
+                {recentFilms.length > 0
+                  ? Math.floor((Date.now() - recentFilms[0].createdAt.getTime()) / (1000 * 60 * 60 * 24))
+                  : 0}
               </p>
             </div>
           </div>
         </div>
       </div>
-      
+
       {selectedFilm && (
         <FilmModal 
           film={selectedFilm} 
@@ -173,8 +133,6 @@ const Index = () => {
         isOpen={showAddModal} 
         onClose={() => setShowAddModal(false)} 
       />
-      
-      <Navbar />
     </div>
   );
 };
